@@ -3,30 +3,55 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use CodeIgniter\Controller;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
+
     public function index()
     {
-        return view('user_form');
+        $data['users'] = $this->userModel->findAll();
+        return view('user_form', $data);
     }
 
     public function store()
     {
-        $validation = service('validation');
-        $validation->setRules([
-            'name' => 'required|min_length[3]'
-        ]);
+        $data = [
+            'name' => $this->request->getVar('name'),
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
+        ];
 
-        if ($validation->withRequest($this->request)->run()) {
-            $model = new UserModel();
-            $model->save([
-                'name' => $this->request->getVar('name'),
-            ]);
-            return redirect()->to('/user_form')->with('message', 'Usuario agregado correctamente.');
-        } else {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
+        $this->userModel->save($data);
+        return redirect()->to('user_form')->with('message', 'Usuario guardado correctamente');
+    }
+
+    public function edit($id)
+    {
+        $data['user'] = $this->userModel->find($id);
+        return view('user_edit', $data);
+    }
+
+    public function update($id)
+    {
+        $data = [
+            'name' => $this->request->getVar('name'),
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
+        ];
+
+        $this->userModel->update($id, $data);
+        return redirect()->to('user_form')->with('message', 'Usuario actualizado correctamente');
+    }
+
+    public function delete($id)
+    {
+        $this->userModel->delete($id);
+        return redirect()->to('user_form')->with('message', 'Usuario eliminado correctamente');
     }
 }

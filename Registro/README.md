@@ -1,5 +1,61 @@
 # CodeIgniter 4 Application Starter
 
+# Fromulario
+
+Formulario De registro de usuarios
+
+## Configuración del Entorno
+
+Antes de iniciar el servidor y trabajar en el proyecto, es necesario configurar el entorno de desarrollo. Sigue estos pasos para configurar tu entorno localmente.
+
+### 1. Acceder a la Carpeta del Proyecto
+
+Para comenzar, necesitas navegar a la carpeta de tu proyecto. Abre una terminal y ejecuta:
+
+```bash
+cd nombre-de-tu-proyecto
+
+2. Configuración de Variables de Entorno
+Copia el archivo de ejemplo de configuración de entorno para activar su uso:
+    cp env .env
+Luego, abre el archivo .env con tu editor de texto preferido y realiza los ajustes necesarios:
+    CI_ENVIRONMENT = development
+    database.default.hostname = localhost
+    database.default.database = nombre_de_tu_base_de_datos
+    database.default.username = tu_usuario
+    database.default.password = tu_contraseña
+    database.default.DBDriver = MySQLi
+Asegúrate de cambiar los valores de nombre_de_tu_base_de_datos, tu_usuario, y tu_contraseña con tus datos reales.
+3. Instalar Dependencias
+Instala las dependencias del proyecto ejecutando:
+    composer install
+    composer update
+Ejecución del Servidor de Desarrollo
+Una vez configurado el entorno, puedes iniciar el servidor de desarrollo con el siguiente comando:
+php spark serve
+
+4. Acceder a la URL
+
+http://localhost:8080/
+
+Migración de la Base de Datos
+Para configurar la base de datos que el proyecto utilizará, sigue estos pasos:
+1. Abre el archivo .env con tu editor de texto preferido y realiza los ajustes necesarios:
+Ejecutar Migraciones
+Para estructurar la base de datos con las tablas necesarias, ejecuta:
+php spark migrate
+
+5. Ejecutar el servidor de desarrollo
+
+php spark serve
+
+
+
+
+
+
+
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
